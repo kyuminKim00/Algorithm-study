@@ -79,15 +79,92 @@
 # 맵의 각 칸은 (A, B)로 나타내고 A는 북쪽으로부터 떨어진 칸의 개수, B는 서쪽으로부터 떨어진 칸의 개수
 
 # 캐릭터가 움직이는 메뉴얼
-# 1. 현재 위치에서 현재 방향을 기준으로 왼쪽방향부터 차례대로 갈 곳을 정하낟.
-# 2. 캐릭터의 바로 왼쪽 방향에 아직 가보지 않은 칸이 존재한다면, 왼쪽 방향으로 회전만 수행하고 1단계로 돌아간다.
+# 1. 현재 위치에서 현재 방향을 기준으로 왼쪽방향부터 차례대로 갈 곳을 정한다.
+# 2. 캐릭터의 바로 왼쪽 방향에 아직 가보지 않은 칸이 존재한다면, 왼쪽 방향으로 회전한 다음 왼쪽으로 한 칸을 전진한다.
+#    왼쪽 방향에 가보지 않은 칸이 없다면, 왼쪽 방향으로 회전만 수행하고 1단계로 돌아간다.
 # 3. 만약 네 방향 모두 이미 가본 칸이거나 바다로 되어 있는 칸인 경우에는, 바라보는 방향을 유지한 채로 한 칸 뒤로 가고 
-#     1단계로 돌아간다. 단, 이때 뒤쪽 방향이 바다인 칸이라 뒤로 갈 수 없는 경우에는 움직임을 멈춘다.
+#    1단계로 돌아간다. 단, 이때 뒤쪽 방향이 바다인 칸이라 뒤로 갈 수 없는 경우에는 움직임을 멈춘다.
     
 # 메뉴얼에 따라 캐릭터를 이동시킨 뒤에, 캐릭터가 방문한 칸의 개수를 출력하는 프로그램을 만드시오.
 
+# d = 0 : 북쪽
+# d = 1 : 동족
+# d = 2 : 남쪽
+# d = 3 : 서쪽
+
 n, m = map(int, input().split()) # n x m 맵 생성
-a, b, d = map(int, input().split()) # (a, b)에 d을 바라보고 있는 캐릭터
+a, b, d = map(int, input().split()) # (a, b)에 d을 바라보고 있는 캐릭터 
+arr = []
+for i in range(n):
+    arr_ = list(map(int, input().split()))
+    arr.append(arr_)
 
+arr[a][b] = 1
+#  1 1 1 1
+#  1 0 0 1
+#  1 1 0 1
+#  1 1 1 1     
+def rotate(d):
+    if d == 0 :
+        d = 3
+    elif d == 1:
+        d = 0
+    elif d == 2:
+        d = 1
+    elif d == 3:
+        d = 2
+    return d
 
+def move(a, b, d, arr):
+    if d == 0:
+        a -= 1
+    elif d == 1:
+        b += 1
+    elif d == 2:
+        a += 1
+    elif d == 3:
+        b -= 1
+    
+    return a, b, arr
 
+def check_can_go(a, b, d, arr):
+    next_d = rotate(d)
+    next_a, next_b, _ = move(a, b, next_d, arr)
+    if arr[next_a][next_b] == 1:
+        return False
+    elif arr[next_a][next_b] == 0:
+        return True
+
+def move_back(a, b, d):
+    if d == 0:
+        a += 1
+    elif d == 1:
+        b -= 1
+    elif d == 2:
+        a -= 1
+    elif d == 3:
+        b += 1
+    return a, b
+
+count = 0
+count_move = 0
+while True:
+    if check_can_go(a, b, d, arr):
+        d = rotate(d)
+        a, b, arr = move(a, b, d, arr)
+        arr[a][b] = 1
+        count_move += 1
+        count = 0
+    else:
+        d = rotate(d)
+        count+=1
+        if count == 4:
+            a, b = move_back(a, b, d)
+            if arr[a][b] == 1:
+                break
+            else:
+                arr[a][b] = 1
+                count_move += 1
+                count = 0
+
+print(count_move+1)
