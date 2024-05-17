@@ -53,7 +53,6 @@
 #     queue = deque([start]) # deque 객체를 만들고 start 노드 넣기 
 #     visited[start] = True
 #     while queue:
-
 #         v = queue.popleft() # 가장 먼저 들어온 노드 pop
 #         print(v, end=' ')
 #         for i in graph[v]: # 노드에 인접한 노드 순회
@@ -77,5 +76,91 @@
 # bfs(graph, 1, visited)
 
 ## 실전문제3 : 음료수 얼려 먹기 ##
-# NxM 크기의 얼음 틀이 있다. 구멍이 뚫려 있는 부분은 0, 칸막이가 존재하는 부분은 1로 표시된다. 구멍이 뚫려 있는 부분끼리 상, 하, 좌, 우로 붙어 있는 경우 서로 연결되어 있는 것으로 간주한다.
+# NxM 크기의 얼음 틀이 있다. 구멍이 뚫려 있는 부분은 0, 칸막이가 존재하는 부분은 1로 표시된다. 
+# 구멍이 뚫려 있는 부분끼리 상, 하, 좌, 우로 붙어 있는 경우 서로 연결되어 있는 것으로 간주한다.
 # 이때 얼음 틀의 모양이 주어졌을 때 생성되는 총 아이스크림의 개수를 구하는 프로그램을 작성하시오.
+
+# n, m = map(int, input().split())
+
+# arr = []
+
+# for _ in range(n):
+#     arr.append(list(map(int, input())))
+    
+# visited = [[False for j in range(m)] for i in range(n)]
+
+# def DFS(graph, i, j, visited):
+#     visited[i][j] = True
+    
+#     if 0<=i+1<n and 0<=j<m:
+#         if not visited[i+1][j] and not arr[i+1][j]:
+#             DFS(graph, i+1, j, visited)
+#     if 0<=i-1<n and 0<=j<m:
+#         if not visited[i-1][j] and not arr[i-1][j]:
+#             DFS(graph, i-1, j, visited)
+#     if 0<=i<n and 0<=j+1<m:
+#         if not visited[i][j+1] and not arr[i][j+1]:
+#             DFS(graph, i, j+1, visited)
+#     if 0<=i<n and 0<=j-1<m:
+#         if not visited[i][j-1] and not arr[i][j-1]:
+#             DFS(graph, i, j-1, visited)
+
+# count = 0
+
+# for i in range(n):
+#     for j in range(m):
+#         if not visited[i][j] and not arr[i][j]:
+#             DFS(arr, i, j, visited)
+#             count+=1
+# print(count)
+
+## 풀이 ##
+# 1. 특정한 지점의 주변 상하좌우를 살펴본 뒤 주변 지점에서 값이 0이면서 아직 방문하지 않은 지점이 있다면 방문
+# 2. 방문한 지점에서 다시 상하좌우를 살펴보면서 방문을 진행하면 연결된 모든 지점 방문 가능
+# 3. DFS를 시작했으면 아이스크림의 개수 1 더하기(DFS를 시작한다는 것은 하나의 집단을 센 것)
+# 4. (0, 0) 에서 (n, m)까지 반복
+
+
+## 실전문제4 : 미로 탈출 ##
+# NxM 의 크기 직사각형 형태의 미로에 갇혀있다. 동빈이의 위치는 (1, 1)이고 미로의 출구는 (N, M)의 위치에 존재한다.
+# 괴물이 있는 부분은 0, 괴물이 없는 부분은 1로 표시하고 한번에 한 칸씩 이동할 수 있다.
+# 이때 동빈이가 탈출하기 위해 움직여야하는 최소 칸의 개수를 구하시오.
+
+from collections import deque
+
+queue = deque()
+arr = []
+n, m = map(int, input().split())
+number = [[0 for j in range(m)] for i in range(n)]
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def BFS(x, y):
+    queue = deque()
+    queue.append((x, y))
+    while queue: # 큐가 빌 때까지 반복
+        x, y = queue.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            
+            if nx < 0 or ny < 0 or nx >= n or ny >= m:
+                continue
+            
+            if arr[nx][ny] == 0:
+                continue
+            
+            if arr[nx][ny] == 1:
+                arr[nx][ny] = arr[x][y] + 1
+                queue.append((nx, ny))
+    return arr[n-1][m-1]
+
+print(BFS(0, 0))
+            
+
+
+    
+
+    
+
