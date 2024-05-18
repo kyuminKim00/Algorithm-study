@@ -92,79 +92,79 @@
 # d = 2 : 남쪽
 # d = 3 : 서쪽
 
-n, m = map(int, input().split()) # n x m 맵 생성
-a, b, d = map(int, input().split()) # (a, b)에 d을 바라보고 있는 캐릭터 
-arr = []
-for i in range(n):
-    arr_ = list(map(int, input().split()))
-    arr.append(arr_)
+# n, m = map(int, input().split()) # n x m 맵 생성
+# a, b, d = map(int, input().split()) # (a, b)에 d을 바라보고 있는 캐릭터 
+# arr = []
+# for i in range(n):
+#     arr_ = list(map(int, input().split()))
+#     arr.append(arr_)
 
-arr[a][b] = 1
-#  1 1 1 1
-#  1 0 0 1
-#  1 1 0 1
-#  1 1 1 1     
-def rotate(d):
-    if d == 0 :
-        d = 3
-    elif d == 1:
-        d = 0
-    elif d == 2:
-        d = 1
-    elif d == 3:
-        d = 2
-    return d
+# arr[a][b] = 1
+# #  1 1 1 1
+# #  1 0 0 1
+# #  1 1 0 1
+# #  1 1 1 1     
+# def rotate(d):
+#     if d == 0 :
+#         d = 3
+#     elif d == 1:
+#         d = 0
+#     elif d == 2:
+#         d = 1
+#     elif d == 3:
+#         d = 2
+#     return d
 
-def move(a, b, d, arr):
-    if d == 0:
-        a -= 1
-    elif d == 1:
-        b += 1
-    elif d == 2:
-        a += 1
-    elif d == 3:
-        b -= 1
+# def move(a, b, d, arr):
+#     if d == 0:
+#         a -= 1
+#     elif d == 1:
+#         b += 1
+#     elif d == 2:
+#         a += 1
+#     elif d == 3:
+#         b -= 1
     
-    return a, b, arr
+#     return a, b, arr
 
-def check_can_go(a, b, d, arr):
-    next_d = rotate(d)
-    next_a, next_b, _ = move(a, b, next_d, arr)
-    if arr[next_a][next_b] == 1:
-        return False
-    elif arr[next_a][next_b] == 0:
-        return True
+# def check_can_go(a, b, d, arr):
+#     next_d = rotate(d)
+#     next_a, next_b, _ = move(a, b, next_d, arr)
+#     if arr[next_a][next_b] == 1:
+#         return False
+#     elif arr[next_a][next_b] == 0:
+#         return True
 
-def move_back(a, b, d):
-    if d == 0:
-        a += 1
-    elif d == 1:
-        b -= 1
-    elif d == 2:
-        a -= 1
-    elif d == 3:
-        b += 1
-    return a, b
+# def move_back(a, b, d):
+#     if d == 0:
+#         a += 1
+#     elif d == 1:
+#         b -= 1
+#     elif d == 2:
+#         a -= 1
+#     elif d == 3:
+#         b += 1
+#     return a, b
 
-count = 0
-count_move = 0
-while True:
-    if check_can_go(a, b, d, arr):
-        d = rotate(d)
-        a, b, arr = move(a, b, d, arr)
-        arr[a][b] = 1
-        count_move += 1
-        count = 0
-    else:
-        d = rotate(d)
-        count+=1
-        if count == 4:
-            a, b = move_back(a, b, d)
-            if arr[a][b] == 1:
-                break
-            else:
-                arr[a][b] = 1
-                count_move += 1
-                count = 0
+# count = 0
+# count_move = 0
+# while True:
+#     if check_can_go(a, b, d, arr):
+#         d = rotate(d)
+#         a, b, arr = move(a, b, d, arr)
+#         arr[a][b] = 1
+#         count_move += 1
+#         count = 0
+#     else:
+#         d = rotate(d)
+#         count+=1
+#         if count == 4:
+#             a, b = move_back(a, b, d)
+#             if arr[a][b] == 1:
+#                 break
+#             else:
+#                 arr[a][b] = 1
+#                 count_move += 1
+#                 count = 0
 
-print(count_move+1)
+# print(count_move+1)
