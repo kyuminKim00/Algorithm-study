@@ -126,37 +126,37 @@
 # 괴물이 있는 부분은 0, 괴물이 없는 부분은 1로 표시하고 한번에 한 칸씩 이동할 수 있다.
 # 이때 동빈이가 탈출하기 위해 움직여야하는 최소 칸의 개수를 구하시오.
 
-from collections import deque
+# from collections import deque
 
-queue = deque()
-arr = []
-n, m = map(int, input().split())
-number = [[0 for j in range(m)] for i in range(n)]
+# queue = deque()
+# arr = []
+# n, m = map(int, input().split())
+# number = [[0 for j in range(m)] for i in range(n)]
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+# dx = [-1, 1, 0, 0]
+# dy = [0, 0, -1, 1]
 
-def BFS(x, y):
-    queue = deque()
-    queue.append((x, y))
-    while queue: # 큐가 빌 때까지 반복
-        x, y = queue.popleft()
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
+# def BFS(x, y):
+#     queue = deque()
+#     queue.append((x, y))
+#     while queue: # 큐가 빌 때까지 반복
+#         x, y = queue.popleft()
+#         for i in range(4):
+#             nx = x + dx[i]
+#             ny = y + dy[i]
             
-            if nx < 0 or ny < 0 or nx >= n or ny >= m:
-                continue
+#             if nx < 0 or ny < 0 or nx >= n or ny >= m:
+#                 continue
             
-            if arr[nx][ny] == 0:
-                continue
+#             if arr[nx][ny] == 0:
+#                 continue
             
-            if arr[nx][ny] == 1:
-                arr[nx][ny] = arr[x][y] + 1
-                queue.append((nx, ny))
-    return arr[n-1][m-1]
+#             if arr[nx][ny] == 1:
+#                 arr[nx][ny] = arr[x][y] + 1
+#                 queue.append((nx, ny))
+#     return arr[n-1][m-1]
 
-print(BFS(0, 0))
+# print(BFS(0, 0))
             
 
 
