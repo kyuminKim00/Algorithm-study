@@ -58,3 +58,63 @@
 
 
 ### 실전문제2 : 1로 만들기 ###
+# 정수 X가 주어질 때 정수 X에 사용할 수 있는 연산은 다음과 같이 4가지이다.
+# 1. X가 5로 나누어떨어지면, 5로 나눈다.
+# 2. X가 3으로 나누어떨어지면, 3으로 나눈다.
+# 3. X가 2로 나누어떨어지면, 2로 나눈다.
+# 4. X에서 1을 뺀다.
+
+# 정수 X가 주어졌을 때 연산 4개를 적절히 사용해서 1을 만드려고 한다. 연산을 사용하는 횟수의 최솟값을 출력하시오.
+
+# from itertools import permutations 
+# x = int(input())
+# arr = [5, 3, 2, 1]
+# res = permutations(arr) # 순열 계산해서 모든 경우의 수 계산한 후 가장 연산 횟수가 적은 경우 출력
+# res = list(res)
+#                         # but 이렇게 하면 시간 초과가 발생함
+# def one_calculate(arr, x):
+#     for i in arr:
+#         if i==1:
+#             x-=1
+#             return x
+        
+#         elif x%i==0:
+#             x=x//i
+#             return x
+#     return x
+        
+
+# count_arr = []
+
+
+# for i in res:
+#     count = 0
+#     x_ = x
+#     while x_>1:
+#         count+=1
+#         x_ = one_calculate(i, x_)
+    
+#     count_arr.append(count)
+
+# print(min(count_arr))
+
+# ----------------------------------------------------------------------------------------------------- #
+
+# Dynamic Programming 방식으로 품
+x = int(input())
+
+d = [0] * 30001
+
+for i in range(2, x+1):
+    d[i] = d[i-1] + 1 # x = x-1 인 경우
+
+    if i%2 == 0:
+        d[i] = min(d[i], d[i//2]+1)
+    elif i%3 == 0:
+        d[i] = min(d[i], d[i//3]+1)
+    elif i%5 == 0:
+        d[i] = min(d[i], d[i//5]+1)
+
+print(d[x])
+
+
