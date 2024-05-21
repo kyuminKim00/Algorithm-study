@@ -46,3 +46,89 @@
 #     print(result+1)
 
 ## 실전문제2 : 부품 찾기 ##
+
+# n = int(input())
+# arr = list(map(int, input().split()))
+
+# m = int(input())
+# customer = list(map(int, input().split()))
+
+# arr = sorted(arr) # 이진 탐색하기 전 정렬
+
+# def binary_search(array, target, start, end): ## 재귀적으로 구현한 이진 탐색
+#     if start>end:
+#         return None
+
+#     mid = (start + end)//2
+
+#     if array[mid] == target:
+#         return mid
+    
+#     elif array[mid] > target:
+#         return binary_search(array, target, start, mid - 1)
+    
+#     else:
+#         return binary_search(array, target, mid+1, end)
+    
+
+# for i in customer:
+#     if binary_search(arr, i, 0, len(arr)-1) != None :
+#         print("yes", end = ' ')
+#     else:
+#         print("no", end=' ')
+
+
+## 실전문제3 : 떡볶이 떡 만들기 ##
+
+# import sys
+# n, m = map(int, sys.stdin.readline().rstrip().split())
+# arr = list(map(int, sys.stdin.readline().rstrip().split()))
+# H = max(arr)
+# customer = []
+
+# while True: # 단순히 자르는 길이를 1씩 감소시켜가면서 풀기, 이렇게하면 시간 복잡도 측면에서 오답이 나올 가능성이 높다.
+#     if H == 0:
+#         break
+#     count = 0
+#     for i in arr:
+#         length = i - H
+#         if length >=0:
+#             count+=length
+#     customer.append([count, H])
+#     H-=1
+
+# print(customer)
+
+# final = [i for i in customer if i[0]>=6]
+# print(final)
+# print(final[0][1])
+
+
+# import sys
+# n, m = map(int, sys.stdin.readline().rstrip().split())
+# arr = list(map(int, sys.stdin.readline().rstrip().split()))
+
+# start = 0 
+# end = max(arr)
+
+# while True: # binary serach로 구현
+#     if start>end:
+#         break
+
+#     mid = (start + end) // 2
+#     all_length = 0
+#     for i in arr:
+#         one_length = i - mid
+#         if one_length >= 0:
+#             all_length+=one_length
+#         else:
+#             pass
+
+#     if all_length>=m:
+#         start = mid+1
+#         result = mid
+
+#     elif all_length<m:
+#         end = mid-1
+
+# print(result)
