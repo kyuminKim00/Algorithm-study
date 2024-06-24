@@ -101,20 +101,60 @@
 # ----------------------------------------------------------------------------------------------------- #
 
 # Dynamic Programming 방식으로 품
-x = int(input())
+# x = int(input())
 
-d = [0] * 30001
+# d = [0] * 30001
 
-for i in range(2, x+1):
-    d[i] = d[i-1] + 1 # x = x-1 인 경우
+# for i in range(2, x+1):
+#     d[i] = d[i-1] + 1 # x = x-1 인 경우
 
-    if i%2 == 0:
-        d[i] = min(d[i], d[i//2]+1)
-    elif i%3 == 0:
-        d[i] = min(d[i], d[i//3]+1)
-    elif i%5 == 0:
-        d[i] = min(d[i], d[i//5]+1)
+#     if i%2 == 0:
+#         d[i] = min(d[i], d[i//2]+1)
+#     elif i%3 == 0:
+#         d[i] = min(d[i], d[i//3]+1)
+#     elif i%5 == 0:
+#         d[i] = min(d[i], d[i//5]+1)
 
-print(d[x])
+# print(d[x])
 
+## 실전문제3 : 개미 전사 ##
+# N = int(input())
+# arr = list(map(int, input().split()))
 
+# d = [0] * 100
+# d[0] = arr[0]
+# d[1] = max(arr[0], arr[1])
+# for i in range(2, N):
+#     d[i] = max(d[i-1], d[i-2] + arr[i])
+    
+# print(d[N-1])
+
+## 실전문제4 : 바닥 공사 ##
+# 가로의 길이가 N, 세로의 길이가 2인 직사각형 형태의 얇은 바닥이 있다. 1X2, 2X1, 2X2의 덮개를 이용하여 바닥을 채울 때
+# 발생하는 모든 경우의 수를 구하시오
+
+# N = int(input())
+
+# d = [0] * 1000
+# d[1] = 1
+# d[2] = 3
+# for i in range(3, N+1):
+#     d[i] = d[i-2]*2 + d[i-1]
+    
+# print(d[N]%796796)
+
+## 실전문제5 : 효율적인 화폐 구성 ##
+# N가지 종류의 화폐가 있다. 이 화폐들의 개수를 최소한으로 이용하여 그 가치의 합이 M원이 되도록한다.
+# 화폐는 몇 개라도 사용할 수 있으며, 사용한 화폐의 구성은 같지만 순서만 다른 것은 같은 경우로 구분한다.
+N, M = map(int, input().split())
+arr = []
+for i in range(N):
+    arr.append(int(input()))
+
+d = [10001] * (M+1)
+d[0] = 0
+for i in range(N):
+    for j in range(arr[i], M+1):
+        d[j] = min(d[j], d[j-arr[i]]+1)
+
+print(d[M])
