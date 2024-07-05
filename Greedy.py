@@ -105,3 +105,68 @@
 #         n = n-1
 #         count += 1
 # print(count)
+
+## 기출문제 1. 모험가 길드 ##
+
+# n = int(input())
+# arr = list(map(int, input().split()))
+# arr.sort()
+# arr.reverse()
+# group=[]
+# num = 0
+# for i in arr:
+#     if len(group)==0:
+#         first = i
+#     group.append(i)
+#     if len(group) == first:
+#         num+=1
+#         group=[]
+
+# print(num)      
+
+## 기출문제 2. 곱하기 혹은 더하기 ##
+
+# arr = input()
+# s = []
+# for i in arr:
+#     s.append(int(i))
+
+# a = [0, 1]
+
+# for i in range(1, len(s)):
+#     now = s[i]
+#     if i == 1:
+#         prev = s[i-1]
+#     if (now in a) or (prev in a):
+#         prev = now + prev
+#     else:
+#         prev = now * prev
+
+# print(prev)
+
+## 기출문제 3. 문자열 뒤집기 ##
+
+# arr = input()
+# num = 1
+# for i in range(1, len(arr)):
+#     if arr[i] == arr[i-1]:
+#         pass
+#     else:
+#         num+=1
+
+# print(num//2)
+
+## 기출문제 4. 만들 수 없는 금액 ##
+
+n = int(input())
+arr = list(map(int, input().split()))
+arr.sort()
+
+target = 1
+for i in arr:
+    if target < i:
+        break
+    target += i
+    
+print(target)
+
