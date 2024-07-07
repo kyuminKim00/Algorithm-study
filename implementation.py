@@ -168,3 +168,184 @@
 #                 count = 0
 
 # print(count_move+1)
+
+## 실전문제 7. 럭키 스트레이트 ##
+
+# n = str(input())
+
+# left = n[0:len(n)//2]
+# right = n[len(n)//2: ]
+
+# left_sum = 0
+# for i in left:
+#     left_sum += int(i)
+
+# right_sum = 0
+# for i in right:
+#     right_sum += int(i)
+
+# if left_sum == right_sum:
+#     print("LUCKY")
+# else:
+#     print("READY")
+
+
+## 실전문제 8. 문자열 재정렬 ##
+
+# s = input()
+
+# str_arr = []
+# int_arr = []
+# for i in s:
+#     if ord(i) >= 65:
+#         str_arr.append(i)
+#     else:
+#         int_arr.append(i)
+
+# str_arr.sort()
+
+# sum = 0
+# for i in int_arr:
+#     sum += int(i)
+# for i in str_arr:
+#     print(i, end="")
+# print(sum)
+
+## 실전문제 9. 문자열 압축 ##
+
+# def solution(s):
+#     bank = []
+#     for i in range(1, len(s)+1):
+#         compressed = ""
+#         count=1
+#         for j in range(0, len(s), i):
+#             now = s[j:j+i]
+#             next = s[j+i:j+2*i]
+#             if now == next:
+#                 count+=1
+#             else:
+#                 if count>1:
+#                     compressed += str(count) + now
+#                     count=1
+#                 else:
+#                     compressed += now
+#                     count=1
+#         length = len(compressed)
+#         bank.append(length)
+#     answer = min(bank)
+#     return answer
+
+## 실전문제 10. 자물쇠와 열쇠 ##
+
+# key = [[0, 0, 0], [1, 0, 0], [0, 1, 1]]
+# lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
+
+# def turn(k): # 2차원리스트 90도로 돌리는 함수
+#     n = len(k)
+#     m = len(k[0])
+#     result = [[0] * n for _ in range(m)]
+#     for i in range(n):
+#         for j in range(m):
+#             result[j][n-i-1] = k[i][j]
+#     return result
+
+# def check(new_lock):
+#     lock_lenght = len(new_lock) // 3
+#     for i in range(lock_lenght, lock_lenght * 2):
+#         for j in range(lock_lenght, lock_lenght * 2):
+#             if new_lock[i][j] != 1:
+#                 return False
+#     return True
+
+# def solution(key, lock):
+#     n = len(lock)
+#     m = len(key)
+#     new_lock = [[0] * (n*3) for _ in range(n*3)]
+
+#     for i in range(n):
+#         for j in range(n):
+#             new_lock[i+n][j+n] = lock[i][j]
+    
+#     for k in range(4):
+#         key = turn(key)
+#         for x in range(n*2):
+#             for y in range(n*2):
+#                 for i in range(m):
+#                     for j in range(m):
+#                         new_lock[x+i][y+j] += key[i][j]
+#                 if check(new_lock) == True:
+#                     return True
+                    
+#                 for i in range(m):
+#                     for j in range(m):
+#                         new_lock[x+i][y+j] -= key[i][j]
+#     return False
+
+## 실전문제 11. 뱀 ##  -> 아직 못 품
+n = int(input())
+map = [[0] * n for _ in range(n)]
+k = int(input())
+
+for _ in range(k):
+    i, j = map(int, input().split())
+    map[i][j] = 1
+
+snake = []
+l = int(input())
+for _ in range(l):
+    time, direction = input().split()
+    snake.append((int(time), direction))
+
+def move(dir, x, y):
+    if dir == 'right':
+        return x+1, y
+    if dir == 'down':
+        return x, y +1
+    if dir == 'up':
+        return x, y-1
+    if dir == 'left':
+        return x-1, y
+
+def rotate(now_dir, inst):
+    if inst =='right':
+        if now_dir =='right':
+            return 'down'
+        if now_dir =='left':
+            return 'up'
+        if now_dir =='up':
+            return 'right'
+        if now_dir == 'down':
+            return 'left'
+    if inst == 'left':
+        if now_dir =='right':
+            return 'up'
+        if now_dir =='left':
+            return 'down'
+        if now_dir =='up':
+            return 'left'
+        if now_dir == 'down':
+            return 'right'
+        
+def check(x, y, map):
+    if x ==0 or x == len(map[0]):
+        return False
+    if y ==0 or y == len(map[0]):
+        return False
+    return True
+
+flag = 1
+count = 0
+x, y = 1, 1
+direction = 'right'
+for i in snake:
+        for j in i[0]:
+            if flag:
+                x, y = move(direction, x, y)
+                if check(x, y, map):
+                    count+=1
+                else:
+                    flag = 0
+                    break
+                direction = rotate(direction, i[1])
+
+

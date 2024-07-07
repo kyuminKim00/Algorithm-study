@@ -158,15 +158,60 @@
 
 ## 기출문제 4. 만들 수 없는 금액 ##
 
-n = int(input())
-arr = list(map(int, input().split()))
-arr.sort()
+# n = int(input())
+# arr = list(map(int, input().split()))
+# arr.sort()
 
-target = 1
-for i in arr:
-    if target < i:
-        break
-    target += i
+# target = 1
+# for i in arr:
+#     if target < i:
+#         break
+#     target += i
     
-print(target)
+# print(target)
 
+## 기출문제 5. 볼링공 고르기 ##
+
+# n, m = map(int, input().split())
+# arr = list(map(int, input().split()))
+# num = 0
+
+# for i in range(len(arr)):
+#     for j in range(len(arr)):
+#         if i == j:
+#             continue
+
+#         if arr[i] != arr[j]:
+#             num+=1
+
+# print(num//2)
+
+## 기출문제 6. 무지의 먹방 라이브 ##
+
+def solution(food_times, k):
+    for i in range(k-1):
+
+        if sum(food_times) == 0:
+            return -1
+        
+        index = i%len(food_times)        
+        if food_times[index] != 0:
+            food_times[index] -= 1
+        
+        else:
+            index +=1
+            index = index%len(food_times)
+            while True:
+                if food_times[index] != 0:
+                    food_times[index] -=1
+                    break
+                else:
+                    index +=1
+                    index = index%len(food_times)
+        answer = index+1
+
+    return answer
+
+
+
+print(solution([3, 1, 2], 2))
