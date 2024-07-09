@@ -3,7 +3,7 @@
 
 ## DFS ##
 # Depth-First Search, 깊이 우선 탐색, 그래프에서 깊은 부분을 우선적으로 탐색하는 알고리즘
-# 특정한 상황에서 최대한 깊숙이 들어가서 노드를 방문한 후, 다시 돌아가 다른 경로로 탐색하는 알고리즘, 스택 자료구조를 이용
+# 특정한 상황에서 최대한 깊숙이 들어가서 노드를 방문한 후, 다시 돌아가 다른 경로로 탐색하는 알고리즘, ##스택## 자료구조를 이용
 
 # 동작 과정
 # 1. 탐색 시작 노드를 스택에 삽입하고 방문 처리를 한다.
@@ -38,7 +38,7 @@
 
 ## BFS ##
 # Breadth First Search, 너비 우선 탐색, 가까운 노드부터 탐색하는 알고리즘
-# BFS 구현은 큐 자료구조를 이용한다. 인접한 노드를 반복적으로 큐에 넣도록 알고리즘을 구현하면 자연스럽게 먼저 들어온 것이 먼제 나가게 되어, 가까운 노드부터 탐색을 진행하게 된다.
+# BFS 구현은 ##큐## 자료구조를 이용한다. 인접한 노드를 반복적으로 큐에 넣도록 알고리즘을 구현하면 자연스럽게 먼저 들어온 것이 먼저 나가게 되어, 가까운 노드부터 탐색을 진행하게 된다.
 
 # 동작 과정
 # 1. 탐색 시작 노드를 큐에 삽입하고 방문 처리를 한다.
@@ -157,10 +157,80 @@
 #     return arr[n-1][m-1]
 
 # print(BFS(0, 0))
-            
+        
+# graph = [ # 인접리스트로 그래프 표현
+#     [],
+#     [2, 3, 8],
+#     [1, 7],
+#     [1, 4, 5],
+#     [3, 5],
+#     [3, 4],
+#     [7],
+#     [2, 6, 8],
+#     [1, 7]
+# ]
 
+# visited = [False] * len(graph)
 
-    
+# def dfs(visited, graph, v):
+#     visited[v] = True
+#     print(v)
+#     for i in graph[v]:
+#         if visited[i] == False:
+#             visited[i] = True
+#             dfs(visited, graph, i)
 
-    
+# from collections import deque
 
+# def bfs(graph, start,visited):
+#     queue = deque([start])
+#     visited[start] = True
+#     while queue:
+#         v = queue.popleft()
+#         print(v)
+#         for i in graph[v]:
+#             if not visited[i]:
+#                 queue.append(i)
+#                 visited[i] = True
+
+## 실전 문제 15. 특정 거리의 도시 찾기 ##
+
+# n, m, k, x = map(int, input().split())
+# graph = [[] for _ in range(n+1)]
+# for _ in range(m):
+#     a, b = map(int, input().split())
+#     graph[a].append(b)
+#     graph[b].append(a)
+
+# visited = [False] * (n+1)
+
+# from collections import deque
+
+# def bfs(graph, visited, start):
+#     length = []
+#     num = 0
+#     queue = deque([start])
+#     visited[start] = True
+#     while queue:
+#         node = queue.popleft()
+#         num+=1
+#         for i in graph[node]:
+#             if not visited[i]:
+#                 queue.append(i)
+#                 length.append((i, num))
+#                 visited[i] = True
+#     return length
+
+# length = bfs(graph, visited, 1)
+# answer = []
+# for i in length:
+#     if i[1] == k:
+#         answer.append(i[0])
+
+# if len(answer) == 0:
+#     print(-1)
+# else:
+
+#     answer.sort()
+#     for i in answer:
+#         print(i, end="\n")
