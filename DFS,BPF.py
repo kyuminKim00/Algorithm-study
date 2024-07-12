@@ -234,3 +234,191 @@
 #     answer.sort()
 #     for i in answer:
 #         print(i, end="\n")
+
+## 실전문제 16. 연구소 ## 구현 + dfs
+
+# 맵에서 2로 표시되어있는 부분에서 시작해서 0으로 표시되어있는 부분은 그래프가 연결된거고 1은 연결되지 않았다고 생각
+# 아래 코드는 시간 초과 뜸
+# n, m = map(int, input().split())
+# exper_map = []
+# for i in range(n):
+#     exper_map.append(list(map(int, input().split())))
+# dx = [1, 0, -1, 0] # 동, 남, 서, 북   으로 이동
+# dy = [0, 1, 0, -1]
+
+# def virus_move(x, y):
+#     for i in range(4):
+#         nx = dx[i] + x
+#         ny = dy[i] + y
+#         if nx >= 0 and nx < n and ny >= 0 and ny < m:
+#             if temp[nx][ny] == 0:
+#                 temp[nx][ny] = 2
+#                 virus_move(nx, ny)
+        
+# def get_score():
+#     score = 0
+#     for i in range(n):
+#         for j in range(m):
+#             if temp[i][j] == 0:
+#                 score += 1
+#     return score
+
+# score_arr = []
+# def run(count):
+#     if count == 3:
+#         for i in range(n):
+#             for j in range(m):
+#                 temp[i][j] = exper_map[i][j]
+
+#         for i in range(n):
+#             for j in range(m):
+#                 if temp[i][j] == 2:
+#                     virus_move(i, j)
+
+#         score = get_score()
+#         score_arr.append(score)
+#         return
+    
+#     for i in range(n):
+#         for j in range(m):
+#             if exper_map[i][j] == 0:
+#                 exper_map[i][j] = 1
+#                 count+=1
+#                 run(count)
+#                 exper_map[i][j] = 0
+#                 count-=1
+# run(0)
+# print(max(score_arr))
+
+# # 아래 코드는 시간 초과 안뜸
+# n, m = map(int, input().split())
+# exper_map = []
+# for i in range(n):
+#     exper_map.append(list(map(int, input().split())))
+# temp = [[0] * m for i in range(n)]
+# dx = [1, 0, -1, 0]
+# dy = [0, 1, 0, -1]
+
+# from collections import deque
+# def bfs(): # 바이러스 전파하는 함수, 큐, bfs 사용
+#     queue = deque()
+#     for i in range(n):
+#         for j in range(m):
+#             temp[i][j] = exper_map[i][j]
+#             if temp[i][j] == 2:
+#                 queue.append((i, j))
+    
+#     while queue:
+#         x, y = queue.popleft()
+#         for d in range(4):
+#             nx = x + dx[d]
+#             ny = y + dy[d]
+#             if 0 <= nx < n and 0 <= ny < m:
+#                 if temp[nx][ny] == 0:
+#                     temp[nx][ny] = 2
+#                     queue.append((nx, ny))
+
+# def get_score():
+#     score = 0
+#     for i in range(n):
+#         for j in range(m):
+#             if temp[i][j] == 0:
+#                 score += 1
+#     return score
+
+# score_arr = []
+# def run():
+#     walls = []
+#     for i in range(n):
+#         for j in range(m):
+#             if exper_map[i][j] == 0:
+#                 walls.append((i, j))
+    
+#     from itertools import combinations
+#     wall_combinations = combinations(walls, 3)
+    
+#     for positions in wall_combinations:
+#         for x, y in positions:
+#             exper_map[x][y] = 1
+        
+#         for i in range(n):
+#             for j in range(m):
+#                 temp[i][j] = exper_map[i][j]
+        
+#         bfs()
+#         score = get_score()
+#         score_arr.append(score)
+        
+#         for x, y in positions:
+#             exper_map[x][y] = 0
+
+# run()
+# print(max(score_arr))
+
+
+## 실전문제 17. 경쟁적 전염 ##
+
+# n, k = map(int, input().split())
+# exper_map = []
+# for i in range(n):
+#     exper_map.append(list(map(int, input().split())))
+# s, a, b = map(int, input().split())
+
+# dx = [-1, 0, 1, 0]
+# dy = [0, 1, 0, -1]
+
+# from collections import deque
+# queue = deque()
+# temp = []
+
+# def virus_move(x, y):
+#     global temp
+#     for i in range(4):
+#         nx = x + dx[i]
+#         ny = y + dy[i]
+#         if 0<=nx<n and 0<=ny<n:
+#             if exper_map[nx][ny] == 0:
+#                 exper_map[nx][ny] = exper_map[x][y]
+#                 temp.append((nx, ny))
+
+
+# def plot_map():
+#     print("\n")
+#     for i in range(n):
+#         print("\n")
+#         for j in range(n):
+#             print(exper_map[i][j], end=" ")
+
+# def run():
+#     global temp
+#     count = 0
+#     arr = []
+#     for i in range(n):
+#         for j in range(n):
+#             if exper_map[i][j] != 0:
+#                 arr.append((exper_map[i][j], i, j))
+#     arr_sorted = sorted(arr, key=lambda x:x[0])
+#     bbb = []
+#     for i in arr_sorted:
+#         bbb.append(i[1:])
+#     queue.append(bbb)
+
+#     while True:
+#         if count == s:
+#                 return
+#         count+=1
+#         arr_ = queue.popleft()
+#         for i in arr_:
+#             virus_move(i[0], i[1]) 
+#         queue.append(temp)
+#         temp = []
+
+# run()
+# print(exper_map[a-1][b-1])
+
+## 실전문제 18. 괄호 변환 ##
+
+def solution(p):
+    answer = ''
+    return answer
+
