@@ -4,7 +4,7 @@
 
 ## 선택 정렬 ##
 # 가장 원시적인 정렬 방법
-# 데이터가 무작위로 있을 때 이중에서 갖아 작은 데이터를 선택해 맨 앞에 있는 데이터와 바꾸고, 그다음 작은 데이터를 선택해
+# 데이터가 무작위로 있을 때 이중에서 가장 작은 데이터를 선택해 맨 앞에 있는 데이터와 바꾸고, 그다음 작은 데이터를 선택해
 # 앞에서 두 번째 데이터와 바꾸는 과정을 반복.
 # 매번 가장 작은 것을 선택한다는 의미에서 선택 정렬(Selection sort) 알고리즘이라고 함.
 
@@ -33,7 +33,7 @@
 
 ### 삽입 정렬 ###
 # 특정한 데이터를 적절한 위치에 삽입한다는 의미에서 삽입 정렬(Insertion Sort)라고 함. 
-# 특정한 데이터가 적잘한 위치에 삽입도기 이전에 그 앞까지의 데이터는 이미 정렬되어 있다고 가정한다.
+# 특정한 데이터가 적잘한 위치에 삽입되기 이전에 그 앞까지의 데이터는 이미 정렬되어 있다고 가정한다.
 # 삽입 정렬은 두 번째 데이터부터 시작한다. 첫번째 데이터는 이미 정렬되어있다고 판단하기 때문이다. 
 # 두번째 데이터가 첫번째 데이터보다 큰지 작은지에 따라서 왼쪽, 오른쪽에 들어가는 두 경우가 존재하고, 경우에 따라 삽입한다.
 # 세번째 데이터는 첫번째, 두번째 데이터의 관계에서 첫번째 데이터의 왼쪽, 두 데이터의 사이, 두번째 데이터의 오른쪽으로
@@ -47,7 +47,7 @@
 
 # for i in range(1, len(array)): # 첫번째 원소는 이미 정렬되어 있다고 가정
 #     for j in range(i, 0, -1):
-#         if array[j] < array[j-1]: # 자리보다 큰 데이터를 만나면 자리를 바꾸면서 왼쪽으로 이동
+#         if array[j] < array[j-1]: # 자기보다 큰 데이터를 만나면 자리를 바꾸면서 왼쪽으로 이동
 #             array[j], array[j-1] = array[j-1], array[j]
 #         else: 
 #             break # 자기보다 작은 데이터를 만나면 그 자리에서 멈춤
@@ -69,7 +69,7 @@
 # 피벗을 설정하는 방식으로 책에서는 가장 대표적인 방식인 호어 분할 방식을 기준으로 설명한다.
 
 # 1. 리스트의 첫번째 데이터를 피벗으로 설정한다.
-# 2. 왼쪽부터 피벗보다 큰 데이터를 찾고, 오른쪽부터 피벗보다 작은 데이터를 찾느다.
+# 2. 왼쪽부터 피벗보다 큰 데이터를 찾고, 오른쪽부터 피벗보다 작은 데이터를 찾는다.
 # 3. 두 데이터의 위치를 서로 변경한다.
 # 4. 2, 3의 과정을 반복하다가 두 데이터의 위치가 엇갈리면(피벗보다 큰 데이터가 피벗보다 작은 데이터보다 오른쪽에 있는 경우)
 #    피벗과 작은 데이터의 위치를 변경한다.
@@ -79,7 +79,7 @@
 # 퀵 정렬은 재귀 함수 형태로 작성하는데 이때 퀵 정렬이 끝나는 조건을 명시해야한다.
 # 퀵 정렬이 끝나는 조건은 현재 리스트의 데이터의 개수가 1개인 경우이다. 
 
-# rray = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
+# array = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
 # def quick_sort(array, start, end):
 #     if start >= end: # 재귀함수 종료조건, 원소가 1개인 경우 종료
 #         return
@@ -150,6 +150,7 @@
 # for i in range(len(count)):
 #     for j in range(count[i]):
 #         print(i, end=' ') 
+# print(count)
         
 ## 계수 정렬의 시간 복잡도 ##
 # 데이터의 개수가 N, 데이터 중 최대값의 크기를 K라고 할 때 시간 복잡도는 O(N+K)이다.
@@ -235,4 +236,79 @@
 # print(sum(A))
     
 
-d
+# array = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
+
+# def quick_sort(array):
+#     if len(array) <= 1:
+#         return array
+#     pivot = array[0]
+#     tail = array[1:]
+#     left = [x for x in tail if x<=pivot]
+#     right = [x for x in tail if x>pivot]
+#     return quick_sort(left) + [pivot] + quick_sort(right)
+
+# print(quick_sort(array))
+
+## 실전문제 23. 국영수 ##
+
+# n = int(input())
+# db = []
+# for i in range(n):
+#     db.append(input().split())
+
+# db = sorted(db, key= lambda x:(-int(x[1]), int(x[2]), -int(x[3]), x[0]))
+# for i in range(len(db)):
+#     print(db[i][0])
+
+## 실전문제 24. 안테나 ##
+
+# n = int(input())
+# arr = list(map(int,input().split()))
+# arr.sort()
+
+# if len(arr) % 2 == 0:
+#     median_1 = arr[len(arr)//2]
+#     sum_1 = 0
+#     for i in arr:
+#         sum_1 += abs(i - median_1)
+#     median_2 = arr[(len(arr)//2)-1]
+#     sum_2 = 0
+#     for i in arr:
+#         sum_2 += abs(i-median_2)
+#     if sum_1 >= sum_2:
+#         print(median_2)
+#     else:
+#         print(median_1)
+# else:
+#     median = arr[len(arr)//2]
+#     print(median)
+
+# ## 실전문제 25. 실패율 ##
+
+# def solution(N, stages):
+#     num_people = len(stages)
+#     arr = []
+#     db = [0] * (N+2)
+#     for i in stages:
+#         db[i]+=1  
+#     for i in range(len(db)-1):
+#         if num_people==0:
+#             ratio = 0
+#         else:
+#             ratio = db[i]/num_people
+#         num_people -= db[i]
+#         arr.append((i, ratio))
+
+#     arr = sorted(arr, key = lambda x:x[1], reverse=True)
+
+#     new_arr = []
+#     for i in arr:
+#         if i[0]!=0:
+#             new_arr.append(i[0])
+
+#     answer = new_arr
+#     return answer
+
+
+
+    
