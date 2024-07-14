@@ -309,6 +309,21 @@
 #     answer = new_arr
 #     return answer
 
+## 실전문제 26. 카드 정렬하기 ##
 
+# n = int(input())
+# card = []
 
-    
+# import heapq
+# q = []
+# for i in range(n):
+#     heapq.heappush(q, int(input()))
+# cost=0
+# while len(q) > 1:
+#     first = heapq.heappop(q)
+#     second = heapq.heappop(q)
+#     merge = first + second
+#     cost += merge
+#     heapq.heappush(q, merge)
+
+# print(cost)
