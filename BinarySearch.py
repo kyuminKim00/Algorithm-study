@@ -132,3 +132,52 @@
 #         end = mid-1
 
 # print(result)
+
+## 실전문제 27. 정렬된 배열에서 특정 수의 개수 구하기 ##
+
+# n, x = map(int,input().split())
+# arr = list(map(int, input().split()))
+
+# from bisect import *
+# left = bisect_left(arr, x)
+# right = bisect_right(arr, x)
+# if left-right == 0:
+#     print(-1)
+# else:
+#     print(right-left)
+
+## 실전문제 28. 고정점 찾기 ##
+
+# n = int(input())
+# arr = list(map(int, input().split()))
+
+# def fixed_point(arr, target, start, end):
+#     if start>end:
+#         return None
+#     mid = (start+end)//2
+#     target = mid
+#     if arr[mid] == target:
+#         return mid
+#     elif arr[mid] > target:
+#         return fixed_point(arr, target, start, mid-1)
+#     else:
+#         return fixed_point(arr, target, mid+1, end)
+    
+# fix = fixed_point(arr, len(arr)//2, 0, len(arr)-1)
+# if fix is not None:
+#     print(fix)
+# else:
+#     print(-1)
+
+## 실전문제 29. 공유기 설치 ##
+
+# n, c = map(int, input().split())
+# arr = []
+# for i in range(n):
+#     arr.append(int(input()))
+
+# from itertools import combinations
+# a = list(combinations(arr, c))
+# print(a)
+
+# ???

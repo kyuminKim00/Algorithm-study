@@ -146,15 +146,74 @@
 ## 실전문제5 : 효율적인 화폐 구성 ##
 # N가지 종류의 화폐가 있다. 이 화폐들의 개수를 최소한으로 이용하여 그 가치의 합이 M원이 되도록한다.
 # 화폐는 몇 개라도 사용할 수 있으며, 사용한 화폐의 구성은 같지만 순서만 다른 것은 같은 경우로 구분한다.
-N, M = map(int, input().split())
-arr = []
-for i in range(N):
-    arr.append(int(input()))
+# N, M = map(int, input().split())
+# arr = []
+# for i in range(N):
+#     arr.append(int(input()))
 
-d = [10001] * (M+1)
-d[0] = 0
-for i in range(N):
-    for j in range(arr[i], M+1):
-        d[j] = min(d[j], d[j-arr[i]]+1)
+# d = [10001] * (M+1)
+# d[0] = 0
+# for i in range(N):
+#     for j in range(arr[i], M+1):
+#         d[j] = min(d[j], d[j-arr[i]]+1)
 
-print(d[M])
+# print(d[M])
+
+## 실전문제 31. 금광 ##
+
+# t = int(input())
+# result = []
+# for i in range(t):
+#     index = 0
+#     n, m = map(int, input().split())
+#     gold = [[0] * m for _ in range(n)]
+#     arr = list(map(int, input().split()))
+#     for j in range(n):
+#         for k in range(m):
+#             gold[j][k] = arr[index]
+#             index += 1
+
+#     dp_table = [[0]*m for _ in range(n)]
+#     for i in range(n):
+#         dp_table[i][0] = gold[i][0]
+
+#     for j in range(1, m):
+#         for i in range(n):
+#             if i== 0:
+#                 dp_table[i][j] = max(dp_table[i][j-1], dp_table[i+1][j-1]) + gold[i][j]
+#             elif i == n-1:
+#                 dp_table[i][j] = max(dp_table[i-1][j-1], dp_table[i][j-1]) + gold[i][j]
+#             else:
+#                 dp_table[i][j] = max(dp_table[i-1][j-1], dp_table[i][j-1], dp_table[i+1][j-1]) + gold[i][j]
+#     max_ = 0
+#     for i in range(n):
+#         if dp_table[i][m-1] > max_:
+#             max_ = dp_table[i][m-1]
+#     result.append(max_)
+
+# for i in result:
+#     print(i)
+
+## 실전문제 32. 정수 삼각형 ##
+
+# n = int(input())
+# arr = []
+# dp_table = []
+# for i in range(n):
+#     arr.append(list(map(int,input().split())))
+#     dp_table.append([0]*len(arr[i]))
+    
+# for i in range(len(arr)):
+#     if i == 0:
+#         dp_table[i][0] = arr[i][0]
+#         continue
+#     for j in range(len(arr[i])):
+#         if j == 0:
+#             dp_table[i][j] = dp_table[i-1][j] + arr[i][j]
+#         elif j == len(arr[i]) - 1:
+#             dp_table[i][j] = dp_table[i-1][j-1] + arr[i][j]
+#         else:
+#             dp_table[i][j] = max(dp_table[i-1][j-1], dp_table[i-1][j]) + arr[i][j]
+
+# print(max(dp_table[len(arr)-1]))
+
