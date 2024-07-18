@@ -217,24 +217,72 @@
 
 # print(max(dp_table[len(arr)-1]))
 
-## 실전 문제 33. 퇴사 ##
+## 실전문제 33. 퇴사 ## 이거 못품 ;;
 
-n = int(input())
-t = []
-p = []
-dp = [0] * (n+1)
-max_value = 0
-for _ in range(n):
-    x, y = map(int, input().split())
-    t.append(x)
-    p.append(y)
+# n = int(input())
+# t = []
+# p = []
+# dp = [0] * (n+1)
+# max_value = 0
+# for _ in range(n):
+#     x, y = map(int, input().split())
+#     t.append(x)
+#     p.append(y)
 
-for i in range(n-1, -1, -1):
-    time = t[i] + i
-    if time <= n :
-        dp[i] = max(p[i] + dp[time], max_value)
-        max_value = dp[i]
-    else:
-        dp[i] = max_value
+# for i in range(n-1, -1, -1):
+#     time = t[i] + i
+#     if time <= n :
+#         dp[i] = max(p[i] + dp[time], max_value)
+#         max_value = dp[i]
+#     else:
+#         dp[i] = max_value
 
-print(max_value)
+# print(max_value)
+
+## 실전문제 34. 병사 배치하기 ##
+# n = int(input())
+# arr = list(map(int, input().split()))
+# dp_table = [1] * n
+
+# for i in range(1, len(arr)):
+#     for j in range(0, i):
+#         if arr[i] < arr[j]:
+#             dp_table[i] = max(dp_table[j]+1, dp_table[i])
+# print(n - max(dp_table))
+
+
+# n = int(input())
+# arr = list(map(int, input().split()))
+
+## 가장 긴 증가하는 부분 수열 ##
+# n = int(input())
+# arr = list(map(int, input().split()))
+# dp_table = [1] * n
+
+# for i in range(1, len(arr)):
+#     for j in range(0, i):
+#         if arr[i] > arr[j]:
+#             dp_table[i] = max(dp_table[j]+1, dp_table[i])
+# print(max(dp_table))
+
+## 실전문제 35. 못생긴 수 ##
+# n = int(input())
+# ugly = [2, 3, 5]
+# dp_table = [0] * n
+# dp_table[0] = 1
+# import heapq
+# hq = []
+# for i in ugly:
+#     heapq.heappush(hq, i)
+
+# for i in range(1, n):
+#     now = heapq.heappop(hq)
+#     dp_table[i] = now
+#     for j in ugly:
+#         if now*j not in hq:
+#             heapq.heappush(hq, now*j)
+
+# print(dp_table[n-1])
+
+## 실전문제 36. 편집 거리 ##
+
